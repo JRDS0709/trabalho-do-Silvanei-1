@@ -1,0 +1,158 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: Georgia, "Times New Roman", serif;
+    background: linear-gradient(135deg, #21180e, #594126, #2b1c10);
+    color: #382511;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    padding: 35px;
+    background: #e8d2a6;
+    border: 6px double #765126;
+    border-radius: 8px;
+    box-shadow: 0 15px 40px #0009;
+}
+
+h1 {
+    text-align: center;
+    color: #613b16;
+    font-size: 34px;
+    margin-bottom: 15px;
+}
+
+.subtitulo {
+    text-align: center;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #70502c;
+}
+
+#progresso {
+    text-align: center;
+    font-weight: bold;
+    color: #80531f;
+    margin-bottom: 20px;
+}
+
+#pergunta {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.alternativa {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 12px;
+    background: #f5e6c5;
+    border: 2px solid #9a7544;
+    border-radius: 6px;
+    color: #382511;
+    font-size: 17px;
+    font-family: Georgia, serif;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.alternativa:hover:not(:disabled) {
+    background: #d6b77e;
+    transform: translateX(4px);
+}
+
+.alternativa:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+.correta {
+    background: #a6c99a !important;
+    border-color: #426b36;
+}
+
+.errada {
+    background: #d99b91 !important;
+    border-color: #8b3026;
+}
+
+#feedback {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    line-height: 1.5;
+}
+
+#proximo,
+#reiniciar {
+    display: block;
+    margin: 25px auto 0;
+    padding: 14px 30px;
+    background: #69451e;
+    color: #fff4dc;
+    border: 2px solid #9b753e;
+    border-radius: 5px;
+    font-family: Georgia, serif;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#proximo:hover,
+#reiniciar:hover {
+    background: #382511;
+    transform: scale(1.04);
+}
+
+#resultado {
+    text-align: center;
+    line-height: 1.8;
+}
+
+#resultado h2 {
+    color: #613b16;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+#resultado p {
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.escondido {
+    display: none !important;
+}
+
+@media (max-width: 500px) {
+    .container {
+        padding: 22px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    #pergunta {
+        font-size: 19px;
+    }
+
+    .alternativa {
+        font-size: 15px;
+    }
+}
