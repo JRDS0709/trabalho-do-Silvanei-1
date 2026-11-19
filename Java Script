@@ -1,0 +1,195 @@
+
+const perguntas = [
+    {
+        pergunta: "Quem construiu a arca?",
+        alternativas: ["Abraão", "Noé", "Moisés", "Davi"],
+        correta: 1,
+        referencia: "Gênesis 6:14"
+    },
+    {
+        pergunta: "Quem derrotou Golias?",
+        alternativas: ["Saul", "Salomão", "Davi", "Samuel"],
+        correta: 2,
+        referencia: "1 Samuel 17:50"
+    },
+    {
+        pergunta: "Quantos mandamentos Deus entregou a Moisés?",
+        alternativas: ["5", "7", "10", "12"],
+        correta: 2,
+        referencia: "Êxodo 20"
+    },
+    {
+        pergunta: "Quem foi lançado na cova dos leões?",
+        alternativas: ["Daniel", "José", "Elias", "Jonas"],
+        correta: 0,
+        referencia: "Daniel 6:16"
+    },
+    {
+        pergunta: "Quem traiu Jesus?",
+        alternativas: ["Pedro", "João", "Judas Iscariotes", "Tomé"],
+        correta: 2,
+        referencia: "Mateus 26:14-16"
+    },
+    {
+        pergunta: "Onde Jesus nasceu?",
+        alternativas: ["Jerusalém", "Belém", "Nazaré", "Cafarnaum"],
+        correta: 1,
+        referencia: "Mateus 2:1"
+    },
+    {
+        pergunta: "Quem recebeu as tábuas da Lei?",
+        alternativas: ["Josué", "Arão", "Moisés", "Abraão"],
+        correta: 2,
+        referencia: "Êxodo 31:18"
+    },
+    {
+        pergunta: "Qual era a profissão de Pedro antes de seguir Jesus?",
+        alternativas: ["Carpinteiro", "Pescador", "Soldado", "Pastor"],
+        correta: 1,
+        referencia: "Mateus 4:18-20"
+    },
+    {
+        pergunta: "Quem foi engolido por um grande peixe?",
+        alternativas: ["Jonas", "Jó", "Ezequiel", "Isaías"],
+        correta: 0,
+        referencia: "Jonas 1:17"
+    },
+    {
+        pergunta: "Qual apóstolo perseguia os cristãos antes de sua conversão?",
+        alternativas: ["André", "Paulo", "Tiago", "Filipe"],
+        correta: 1,
+        referencia: "Atos 9:1-6"
+    }
+];
+
+let indice = 0;
+let pontuacao = 0;
+let respondeu = false;
+
+// Exibe a pergunta atual
+function mostrarPergunta() {
+    respondeu = false;
+
+    const atual = perguntas[indice];
+
+    document.getElementById("progresso").textContent =
+        `Pergunta ${indice + 1} de ${perguntas.length}`;
+
+    document.getElementById("pergunta").textContent =
+        atual.pergunta;
+
+    document.getElementById("feedback").textContent = "";
+
+    document.getElementById("proximo").classList.add("escondido");
+
+    const area = document.getElementById("alternativas");
+    area.innerHTML = "";
+
+    atual.alternativas.forEach((alternativa, i) => {
+        const botao = document.createElement("button");
+
+        botao.textContent = alternativa;
+        botao.className = "alternativa";
+
+        botao.onclick = () => verificarResposta(i, botao);
+
+        area.appendChild(botao);
+    });
+}
+
+// Verifica a resposta escolhida
+function verificarResposta(escolha, botao) {
+    if (respondeu) return;
+
+    respondeu = true;
+
+    const atual = perguntas[indice];
+    const botoes = document.querySelectorAll(".alternativa");
+
+    botoes.forEach((b, i) => {
+        b.disabled = true;
+
+        if (i === atual.correta) {
+            b.classList.add("correta");
+        }
+    });
+
+    if (escolha === atual.correta) {
+        pontuacao++;
+
+        document.getElementById("feedback").textContent =
+            "✓ Correto! Referência: " + atual.referencia;
+    } else {
+        botao.classList.add("errada");
+
+        document.getElementById("feedback").textContent =
+            "✗ Resposta incorreta. Referência: " + atual.referencia;
+    }
+
+    document.getElementById("proximo").classList.remove("escondido");
+}
+
+// Avança para a próxima pergunta
+document.getElementById("proximo").onclick = () => {
+    indice++;
+
+    if (indice < perguntas.length) {
+        mostrarPergunta();
+    } else {
+        mostrarResultado();
+    }
+};
+
+// Mostra a pontuação final
+function mostrarResultado() {
+    document.getElementById("jogo").classList.add("escondido");
+
+    const resultado = document.getElementById("resultado");
+
+    resultado.classList.remove("escondido");
+
+    let mensagem;
+
+    if (pontuacao === perguntas.length) {
+        mensagem = "Excelente! Você acertou todas as perguntas!";
+    } else if (pontuacao >= 7) {
+        mensagem = "Muito bem! Você conhece bastante a Bíblia!";
+    } else if (pontuacao >= 4) {
+        mensagem = "Bom esforço! Continue estudando as Escrituras.";
+    } else {
+        mensagem = "Continue aprendendo e examinando as Escrituras!";
+    }
+
+    resultado.innerHTML = `
+        <h2>Resultado final</h2>
+        <p>Você acertou ${pontuacao} de ${perguntas.length} perguntas.</p>
+        <p>${mensagem}</p>
+        <p>📖 Continue crescendo no conhecimento da Palavra!</p>
+    `;
+
+    document.getElementById("reiniciar").classList.remove("escondido");
+}
+
+// Reinicia o questionário
+document.getElementById("reiniciar").onclick = () => {
+    indice = 0;
+    pontuacao = 0;
+
+    document.getElementById("resultado").classList.add("escondido");
+    document.getElementById("reiniciar").classList.add("escondido");
+    document.getElementById("jogo").classList.remove("escondido");
+
+    mostrarPergunta();
+};
+
+// Inicia o jogo
+mostrarPergunta();
+
+
+
+
+
+
+
+
+
